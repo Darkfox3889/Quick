@@ -43,7 +43,7 @@ public class GUIController : MonoBehaviour {
 			if(GUI.Button (new Rect(aButtonLocation.x, aButtonLocation.y, 540, 188), "", game_aButton1_iPhone)){
 				engine.ResetGame();
 			}
-			if(gameBeat < 7){
+			/*if(gameBeat < 7){
 				GUI.DrawTexture(new Rect(quickTitleLocation.x, quickTitleLocation.y, 640, 444), upTexture, ScaleMode.ScaleToFit, true, 0f);
 				gameBeat += Time.deltaTime * engine.difficulty;
 			}
@@ -53,7 +53,7 @@ public class GUIController : MonoBehaviour {
 			}
 			if(gameBeat > 14){
 				gameBeat = 0;
-			}
+			}*/
 		}
 	}
 
@@ -68,11 +68,11 @@ public class GUIController : MonoBehaviour {
 		}
 			GUI.Label (new Rect(clickDisplayLocation.x, clickDisplayLocation.y, 124, 88), engine.clicks + "", game_clickDisplay_iPhone);
 			GUI.Label (new Rect(clickDisplayLocation.x + 200, clickDisplayLocation.y, 124, 88), engine.lastedFor + "", game_clickDisplay_iPhone);
-			GUI.Label (new Rect(Engine.clicks, 400
+			//GUI.Label (new Rect(Engine.clicks, 400
 	}
 
 	public void EndScreen(){
-		if(GUI.Button (new Rect(aButtonLocation.x, aButtonLocation.y - 200, 540, 188), "", game_aButton1_iPhone)){
+		if(GUI.Button (new Rect(aButtonLocation.x, aButtonLocation.y /*- 200*/, 540, 188), "", game_aButton1_iPhone)){
 			engine.ResetGame();
 		}
 		GUI.Label (new Rect(clickDisplayLocation.x, clickDisplayLocation.y, 124, 88), "You lasted for:" + engine.lastedFor, game_clickDisplay_iPhone);
