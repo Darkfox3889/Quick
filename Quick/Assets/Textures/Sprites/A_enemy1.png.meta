@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: feb323a78fb3a4201b3daac103085c58
+guid: 1f1add197369d49c7be3ce949cd0e1ed
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -41,40 +41,40 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: A_enemy_perf
+    - name: A_enemy1_perfect
       rect:
         serializedVersion: 2
-        x: 30
-        y: 32
-        width: 180
-        height: 184
+        x: 0
+        y: 0
+        width: 212
+        height: 216
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: A_enemy_d1
+    - name: A_enemy1_dam1
       rect:
         serializedVersion: 2
-        x: 240
-        y: 32
-        width: 180
-        height: 184
+        x: 212
+        y: 0
+        width: 212
+        height: 216
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: A_enemy_d2
+    - name: A_enemy1_dam2
       rect:
         serializedVersion: 2
-        x: 452
-        y: 32
-        width: 180
-        height: 184
+        x: 424
+        y: 0
+        width: 212
+        height: 216
       alignment: 0
       pivot: {x: .5, y: .5}
-    - name: A_enemy_d3
+    - name: A_enemy1_dam3
       rect:
         serializedVersion: 2
-        x: 664
-        y: 32
-        width: 180
-        height: 184
+        x: 636
+        y: 0
+        width: 212
+        height: 216
       alignment: 0
       pivot: {x: .5, y: .5}
   spritePackingTag: 
