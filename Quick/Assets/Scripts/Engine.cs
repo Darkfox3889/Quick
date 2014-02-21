@@ -9,12 +9,15 @@ public class Engine : MonoBehaviour {
 	public bool inGame;
 	public bool gameEnded;
 
+	private float highScore;
+
 
 	// Use this for initialization
 	void Start () {
 		inGame = false;
 		gameEnded = false;
 		clicks = 10;
+		highScore = 0;
 	}
 	
 	// Update is called once per frame
@@ -25,6 +28,7 @@ public class Engine : MonoBehaviour {
 		}
 
 		if(clicks <= 0f){
+			if(lastedFor>highScore) highScore = lastedFor;
 			inGame = false;
 			gameEnded = true;
 		}
