@@ -26,6 +26,18 @@ public class Engine : MonoBehaviour {
 		highScore = 0;
 		onScreenLetters = 0;
 	}
+
+	void CreateLetterInRandomPlace(){
+		Debug.Log ("Release Letter");
+		onScreenLetters++;
+		Instantiate(letter_prefab);
+	}
+
+	void CreateLetter(){
+		Debug.Log ("Release Letter");
+		onScreenLetters++;
+		Instantiate(letter_prefab);
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -33,9 +45,7 @@ public class Engine : MonoBehaviour {
 		if(inGame){
 			lastedFor += Time.deltaTime;
 
-			if(clicks>100) difficulty = 10;
-			else if(clicks>50) difficulty = 5;
-			else if(clicks>10) difficulty = 2;
+			if(clicks>((20*(difficulty-1))+(20*difficulty))) difficulty++; //difficulty goes up when enough clicks to break 20 objects, if difficulty defines HP
 
 			if(time <= 0f){
 				if(lastedFor>highScore) highScore = lastedFor;
@@ -43,18 +53,13 @@ public class Engine : MonoBehaviour {
 				gameEnded = true;
 			}
 
-			if(onScreenLetters<=3){
-				float release = Random.Range(1,100);
-				if(release <=33){
-					Debug.Log ("Release Letter");
-					onScreenLetters++;
-					Instantiate(letter_prefab);
-				}else{
-
-				}
+			if(onScreenLetters<=difficulty){
+				Debug.Log ("Release Letter");
+				onScreenLetters++;
+				Instantiate(letter_prefab);
 			}
 			onScreenLetters = GameObject.FindGameObjectsWithTag("Letter").Length;
-			Debug.Log ("onScreenLetters = "+onScreenLetters);
+			//Debug.Log ("onScreenLetters = "+onScreenLetters);
 
 		}else{ //game ended/hasn't begun
 			if(gameEnded){
@@ -69,6 +74,7 @@ public class Engine : MonoBehaviour {
 
 	public void ClickIn(){
 		clicks ++;
+		//Debug.Log ("clicks @ CLickIn: "+clicks);
 		time++;
 	}
 

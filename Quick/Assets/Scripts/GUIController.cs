@@ -70,7 +70,7 @@ public class GUIController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		point = camera.WorldToScreenPoint(buttonBoundingBox.transform.position);
-		if(point.y<-8){ 
+		if(point.y<-20){ 
 			engine.gameEnded = true;
 			engine.inGame = false;
 			bbs.Reset();
