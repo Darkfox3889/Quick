@@ -4,38 +4,50 @@ using System.Collections;
 public class LetterMovementScript : MonoBehaviour {
 
 	Engine engine;
-	float beginTime;
 	float timeSinceBegin;
 	public float hits;
 	Animator anim;
+	bool start;
+	int clicks;
 
 	// Use this for initialization
 	void Start () {
 		engine = GameObject.FindWithTag("Engine").GetComponent<Engine>();
 		anim = GetComponent<Animator>();
+		hits=0.0f;;
+		clicks = engine.clicks;
 		anim.SetBool("onScreen",true);
-		beginTime = engine.lastedFor;
-		hits=0;
+	}
+
+	void OnBecameVisible(){
+		Debug.Log ("Renderer visible");
+		start = true;
+		clicks = engine.clicks;
 	}
 	
+
 	// Update is called once per frame
 	void Update () {
-		anim.SetFloat("hits",hits);
-		timeSinceBegin+=Time.deltaTime;
-		Debug.Log ("timeSinceBegin ="+timeSinceBegin);
-		if(timeSinceBegin-1.0f >= beginTime){
-			transform.Translate(-Vector3.up);
-			//transform.position.y -= 1.0f;
-			beginTime = timeSinceBegin;
-			hits+=1.0f;
-		}
 
-		if(hits>=1.0 && !renderer.isVisible){
-			Debug.Log("renderer not visible... detroying");
-			Destroy (this.gameObject);
-		}else if(hits >= 8.0){ 
-			Debug.Log ("hits >8.. destroying");
-			Destroy(this.gameObject);
+		transform.Translate(-Vector3.up*Time.deltaTime*engine.difficulty);
+
+		if(start){
+
+			anim.SetFloat("hits",hits);
+
+			if(engine.clicks>clicks){
+				hits+= 1/engine.difficulty;
+				clicks = engine.clicks;
+			}
+
+			if(hits>=4 ){
+				collider2D.enabled = false;
+				engine.onScreenLetters--;
+			}
+			if(!renderer.isVisible ){ 
+				Debug.Log ("destroying");
+				Destroy(this.gameObject);
+			}
 		}
 	}
 }
