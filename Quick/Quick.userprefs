@@ -1,9 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GUIController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/LetterMovementScript.cs">
     <Files>
-      <File FileName="Assets/Scripts/GUIController.cs" Line="74" Column="69" />
-      <File FileName="Assets/Scripts/Engine.cs" Line="31" Column="23" />
+      <File FileName="Assets/Scripts/ButtonBoundingScript.cs" Line="27" Column="27" />
+      <File FileName="Assets/Scripts/LetterMovementScript.cs" Line="75" Column="3" />
+      <File FileName="Assets/Scripts/GUIController.cs" Line="73" Column="17" />
+      <File FileName="Assets/Scripts/Engine.cs" Line="70" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

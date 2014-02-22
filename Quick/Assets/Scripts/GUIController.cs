@@ -3,10 +3,17 @@ using System.Collections;
 
 public class GUIController : MonoBehaviour {
 
-	private float gameBeat;
-	
-	private Vector2 quickTitleLocation;
+	//public GameObject buttonBound_prefab;
+	int zasd;
+	Vector3 point;
+	Rect buttonRect;
+	public GameObject buttonBoundingBox;
+	private ButtonBoundingScript bbs;
+	public Camera camera;
+	//private Vector2 quickTitleLocation;
 	private Vector2 aButtonLocation;
+	private Vector2 aButtonStartingLocation;
+	private Vector2 aButtonDimensions;
 	private Vector2 clickDisplayLocation;
 
 	public GUIStyle game_quickTitle_iPhone;
@@ -19,62 +26,70 @@ public class GUIController : MonoBehaviour {
 
 	private Engine engine;
 
+	public Vector2 AButtonDimensions{
+		get{return aButtonDimensions;}
+		set{aButtonDimensions = value;}
+	}
+
+	public Vector2 AButtonLocation{
+		get{return aButtonLocation;}
+		set{aButtonLocation = value;}
+	}
+
 	// Use this for initialization
 	void Start () {
-
-		gameBeat = 0;
-		aButtonLocation = new Vector2 (Screen.width /2 - 270, Screen.height - 208);
+		aButtonStartingLocation = new Vector2 (Screen.width /2 - 270, Screen.height - 208);
+		aButtonLocation = aButtonStartingLocation;
+		aButtonDimensions = new Vector2(540,188);
 		clickDisplayLocation = new Vector2 (20, 20);
-		quickTitleLocation = new Vector2 (0, 208);
 
 		engine = GameObject.Find ("Engine").GetComponent("Engine") as Engine;
+		buttonBoundingBox = GameObject.Find ("ButtonBoundingBox");
+		bbs = buttonBoundingBox.GetComponent<ButtonBoundingScript>();
 	
 	}
 
 	void OnGUI(){
+		buttonRect = new Rect(-120, Screen.height-point.y-25, aButtonDimensions.x, aButtonDimensions.y);
+
+		if(!engine.inGame && !engine.gameEnded){ //game start
+			if(GUI.Button (buttonRect,"",game_aButton1_iPhone)){
+				engine.ResetGame();
+			}
+		}
+
 		if(engine.inGame){
 			InGameScreen();
 		}
 		if(engine.gameEnded){
 			EndScreen();
 		}
-		if(!engine.inGame && !engine.gameEnded){
-			//GUI.Button (new Rect(quickTitleLocation.x, quickTitleLocation.y, 640, 444), "", game_quickTitle_iPhone);
-			if(GUI.Button (new Rect(aButtonLocation.x, aButtonLocation.y, 540, 188), "", game_aButton1_iPhone)){
-				engine.ResetGame();
-			}
-			if(gameBeat < 7){
-				GUI.DrawTexture(new Rect(quickTitleLocation.x, quickTitleLocation.y, 640, 444), upTexture, ScaleMode.ScaleToFit, true, 0f);
-				gameBeat += Time.deltaTime * engine.difficulty;
-			}
-			if(gameBeat >=7){
-				GUI.DrawTexture(new Rect(quickTitleLocation.x, quickTitleLocation.y, 640, 444), downTexture, ScaleMode.ScaleToFit, true, 0f);
-				gameBeat += Time.deltaTime * engine.difficulty;
-			}
-			if(gameBeat > 14){
-				gameBeat = 0;
-			}
-		}
+
 	}
 
 	// Update is called once per frame
 	void Update () {
-
+		point = camera.WorldToScreenPoint(buttonBoundingBox.transform.position);
+		if(point.y<-20){ 
+			engine.gameEnded = true;
+			engine.inGame = false;
+			bbs.Reset();
+		}
 	}
 
 	public void InGameScreen(){
-		if(GUI.Button (new Rect(aButtonLocation.x, aButtonLocation.y, 540, 188), "", game_aButton1_iPhone)){
+		if(GUI.Button (buttonRect,"",game_aButton1_iPhone)){
 			engine.ClickIn();
 		}
 			GUI.Label (new Rect(clickDisplayLocation.x, clickDisplayLocation.y, 124, 88), engine.clicks + "", game_clickDisplay_iPhone);
 			GUI.Label (new Rect(clickDisplayLocation.x + 200, clickDisplayLocation.y, 124, 88), engine.lastedFor + "", game_clickDisplay_iPhone);
-			GUI.Label (new Rect(Engine.clicks, 400
 	}
 
 	public void EndScreen(){
-		if(GUI.Button (new Rect(aButtonLocation.x, aButtonLocation.y - 200, 540, 188), "", game_aButton1_iPhone)){
+		aButtonLocation = aButtonStartingLocation;
+		if(GUI.Button (new Rect(aButtonLocation.x, aButtonLocation.y, 540, 188), "", game_aButton1_iPhone)){
 			engine.ResetGame();
 		}
-		GUI.Label (new Rect(clickDisplayLocation.x, clickDisplayLocation.y, 124, 88), "You lasted for:" + engine.lastedFor, game_clickDisplay_iPhone);
+		GUI.Label (new Rect(clickDisplayLocation.x, clickDisplayLocation.y, 124, 88), "\t\tYou lasted for:\n\t\t\t" + engine.lastedFor.ToString("0.00")+ " seconds.", game_clickDisplay_iPhone);
 	}			
 }
